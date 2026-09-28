@@ -4,9 +4,9 @@ let nameInput;
 let startBtn;
 let question;
 let answer;
-let resultElem;
-let radioSelectors;
 let container = document.querySelector(".container");
+let name = "";
+let result = 0;
 // -----------------------------
 function generateStartPage() {
   container.innerHTML = `
@@ -19,16 +19,23 @@ function generateStartPage() {
   startBtn = document.querySelector(".start-btn");
 }
 
-function generateResultspage(result) {
+function generateResultspage() {
   container.innerHTML = `
     <div class="result-continer">
-      <div class="result-element"> Result: ${result}</div>
-      <button>play again</button>
+      <div>
+        <div>Player Name:</div>
+        <p>${name}</p>
+      </div>
+      <div class="result-element"> Result: ${result} / ${questions.length}</div>
+      <div>Percentage: ${result / questions.length * 100} %</div>
+      <button class="play-again-btn">play again</button>
     </div>`;
-  resultElem = document.querySelector(".result-element");
+  name = "";
+  result = 0;
+  document.querySelector(".play-again-btn").addEventListener("click", start);
 }
 
-function generateQuestion(index) {
+function play(index) {
   question = questions[index];
   let choicesHTML = "";
   question.choices.forEach((choice) => {
@@ -38,40 +45,35 @@ function generateQuestion(index) {
           <label for="${choice}"><span>${choice}</span></label>
         </div>`;
   });
-  console.log(choicesHTML);
   container.innerHTML = `
         <input readonly type="text" id="question" value="${question.question}" />
         ${choicesHTML}
         <button class="submit-answer-btn" data-question-index="${index}">submit answer</button>`;
 
   document.querySelector(".submit-answer-btn").addEventListener("click", () => {
-    answer = document.querySelector(`input:checked`).value;
-    console.log(question);
-    console.log(answer.replaceAll("\n", ""));
-    console.log(question.choices[question.answerIndex]);
-    console.log(
-      answer.replaceAll("\n", "") === question.choices[question.answerIndex],
-    );
+    answer = document.querySelector(`input:checked`).value.replaceAll("\n", "");
+    if (answer === question.choices[question.answerIndex].replace("<\r", "<"))
+      result++;
+    else {
+    }
+
+    if (index !== questions.length - 1) play(index + 1);
+    else generateResultspage();
   });
 }
 
 function start() {
   generateStartPage();
-  console.log(startBtn);
 
   startBtn.addEventListener("click", (event) => {
     event.preventDefault();
-    const name = nameInput.value.trim();
+    name = nameInput.value.trim();
     if (!name) {
       alert("invalid name");
       return;
     }
-    play();
+    play(0);
   });
-}
-
-function play() {
-  generateQuestion(0);
 }
 
 start();
