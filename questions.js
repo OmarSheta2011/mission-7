@@ -1,7 +1,7 @@
 export const questions = [
   {
     question: "Which HTML tag creates a hyperlink?",
-    choices: ["<\ra>", "<\rlink>", "<\rp>"],
+    choices: ["<a>", "<link>", "<p>"],
     answerIndex: 0,
   },
   {
