@@ -85,12 +85,13 @@ function play(questionIndex) {
           label.textContent = question.choices[index];
         });
         event.target.textContent = "Next ->";
-        event.target.removeEventListener('click',()=>{})
+        event.target.removeEventListener("click", () => {});
         event.target.addEventListener("click", () => {
           pass = true;
         });
       }
-
+      
+      if (questionIndex === questions.langth) pass = false;
       if (pass === true) play(questionIndex + 1);
       else generateResultspage();
     });
