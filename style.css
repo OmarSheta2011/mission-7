@@ -7,11 +7,15 @@
 :root {
   font-size: 62.5%;
 }
+body {
+  font-size: 1.6rem;
+}
 
 .container {
   font-size: 1.6rem;
   min-width: 100vw;
   min-height: 100vh;
+  background-color: aliceblue;
 }
 
 .container,
@@ -39,16 +43,18 @@ form .name-input-wrraper > * {
 
 form .name-input-wrraper > input {
   flex: 2;
+  font-size: 18px;
 }
 form .name-input-wrraper > button {
   cursor: pointer;
+  font-size: 15px;
 }
 
 /* question page */
 .question-wrraper {
   width: 500px;
   gap: 4rem;
-  background-color: blue;
+  background-color: lightseagreen;
   padding: 2rem;
 }
 .question-wrraper > input[type="text"] {
@@ -66,10 +72,10 @@ form .name-input-wrraper > button {
   height: 200px;
 }
 
-.choices-wrapper > .choice-wrapper {
+.choice-wrapper {
   flex: 1;
   display: flex;
-  background-color: red;
+  background-color: gray;
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
@@ -82,7 +88,11 @@ form .name-input-wrraper > button {
   align-items: center;
   cursor: pointer;
 }
-.right-choice{
+.right-choice {
+  background-color: green;
+}
+
+.right-choice .checked ~ .radio {
   background-color: green;
 }
 
@@ -96,10 +106,20 @@ form .name-input-wrraper > button {
 }
 
 input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"]:checked ~ .radio {
   background-color: blue;
-  height: 100%;
+}
+
+.radio {
+  height: 20px;
   width: 20px;
+  border-radius: 50%;
   cursor: pointer;
+  background-color: white;
+  border: 4px solid white;
 }
 
 .question-wrraper .submit-answer-btn {

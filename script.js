@@ -3,7 +3,6 @@ import { questions } from "./questions.js";
 let nameInput;
 let startBtn;
 let question;
-let answer;
 let container = document.querySelector(".container");
 let name = "";
 let result = 0;
@@ -52,9 +51,11 @@ function play(questionIndex) {
         <label class='choice-wrapper' for="${index}">
           <div class="radio-container">
             <input type="radio" name="answer" id="${index}" value="${index}"/>
+            <div class="radio"></div>
           </div>
           <label id='label' for="${index}"></label>
         </label>`;
+    console.log(index);
   });
 
   generateQuestions(question, choicesHTML);
@@ -66,33 +67,46 @@ function play(questionIndex) {
   document
     .querySelector(".submit-answer-btn")
     .addEventListener("click", (event) => {
-      if (!document.querySelector(`input:checked`)) {
+      event.preventDefault();
+      if (pass === true) {
+        if (questionIndex !== questions.langth) play(++questionIndex);
+        else generateResultspage();
+        return;
+      }
+
+      if (pass === false && !document.querySelector(`input:checked`)) {
         alert("please select a choice.");
         return;
       }
-      answer = question.choices[document.querySelector(`input:checked`).value];
+
+      const answer =
+        question.choices[document.querySelector(`input:checked`).value];
+      console.log(answer, typeof answer);
       if (answer === question.choices[question.answerIndex]) {
         result++;
         pass = true;
+        console.log(result);
+        if (questionIndex !== questions.langth) play(questionIndex + 1);
+        else generateResultspage();
       } else {
         choicesHTML = "";
         question.choices.forEach((choice, index) => {
           choicesHTML += `
-        <div class="choice-wrapper ${index === question.answerIndex ? "right-choice" : ""} ${(answer = index ? "selected-choice" : "")}">
-          <input type="radio" name="answer" id="${index}" value="${index}"/>
-          <label id='label' for="${index}"></label>
-        </div>`;
+        <label class="choice-wrapper ${index === question.answerIndex ? "right-choice" : ""} ${answer === index ? "selected-choice" : ""}">
+          <div class="radio-container">
+            <input type="radio" name="answer" id="${index}" value="${index}" ${index === question.answerIndex ? 'class="checked"' : ""} />
+            <div class="radio"></div>
+          </div>
+          <label id='label'></label>
+        </label>`;
         });
         document.querySelector(".choices-wrapper").innerHTML = choicesHTML;
         document.querySelectorAll("#label").forEach((label, index) => {
           label.textContent = question.choices[index];
         });
         event.target.textContent = "Next ->";
+        pass = true;
       }
-
-      if (pass === true && questionIndex !== questions.langth)
-        play(questionIndex + 1);
-      else generateResultspage();
     });
 }
 
