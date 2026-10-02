@@ -10,10 +10,12 @@ let result = 0;
 // -----------------------------
 function generateStartPage() {
   container.innerHTML = `
-    <form>
-      <p class="start-title">Welcome to the web dev quiz!</p>
-      <input type="text" id="name-input" />
-      <button class="start-btn">Start Quiz</button>
+    <form class="start-form">
+      <h1 class="start-title">Welcome to the web dev quiz!</h1>
+      <div class="name-input-wrraper">
+        <input type="text" id="name-input" />
+        <button class="start-btn">Start Quiz</button>
+      </div>
     </form>`;
   nameInput = document.querySelector("#name-input");
   startBtn = document.querySelector(".start-btn");
@@ -22,12 +24,9 @@ function generateStartPage() {
 function generateResultspage() {
   container.innerHTML = `
     <div class="result-continer">
-      <div>
-        <div>Player Name:</div>
-        <p>${name}</p>
-      </div>
-      <div class="result-element"> Result: ${result} / ${questions.length}</div>
-      <div>Percentage: ${(result / questions.length) * 100} %</div>
+      <div class="name">Player Name: ${name}</div>
+      <div class="result"> Result: ${result} / ${questions.length}</div>
+      <div class="percentage">Percentage: ${(result / questions.length) * 100} %</div>
       <button class="play-again-btn">play again</button>
     </div>`;
   name = "";
@@ -37,9 +36,11 @@ function generateResultspage() {
 
 function generateQuestions(question, choicesHTML) {
   container.innerHTML = `
-        <input readonly type="text" id="question" value="${question.question}" />
-        <div class="choices-wrapper">${choicesHTML}</div>
-        <button class="submit-answer-btn" >submit answer</button>`;
+      <form class="question-wrraper">
+          <input readonly type="text" id="question" value="${question.question}" />
+          <div class="choices-wrapper">${choicesHTML}</div>
+          <button class="submit-answer-btn" >submit answer</button>
+      </form>`;
 }
 
 function play(questionIndex) {
@@ -48,10 +49,12 @@ function play(questionIndex) {
   let choicesHTML = "";
   question.choices.forEach((choice, index) => {
     choicesHTML += `
-        <div class='choice-wrapper'>
-          <input type="radio" name="answer" id="${index}" value="${index}"/>
+        <label class='choice-wrapper' for="${index}">
+          <div class="radio-container">
+            <input type="radio" name="answer" id="${index}" value="${index}"/>
+          </div>
           <label id='label' for="${index}"></label>
-        </div>`;
+        </label>`;
   });
 
   generateQuestions(question, choicesHTML);
@@ -85,14 +88,10 @@ function play(questionIndex) {
           label.textContent = question.choices[index];
         });
         event.target.textContent = "Next ->";
-        event.target.removeEventListener("click", () => {});
-        event.target.addEventListener("click", () => {
-          pass = true;
-        });
       }
-      
-      if (questionIndex === questions.langth) pass = false;
-      if (pass === true) play(questionIndex + 1);
+
+      if (pass === true && questionIndex !== questions.langth)
+        play(questionIndex + 1);
       else generateResultspage();
     });
 }

@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 62.5%;
+}
+
+.container {
+  font-size: 1.6rem;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
+.container,
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.start-form {
+  gap: 5rem;
+}
+
+form .name-input-wrraper {
+  width: 40rem;
+  display: flex;
+  gap: 1rem;
+}
+
+form .name-input-wrraper > * {
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+  border: 1px solid black;
+}
+
+form .name-input-wrraper > input {
+  flex: 2;
+}
+form .name-input-wrraper > button {
+  cursor: pointer;
+}
+
+/* question page */
+.question-wrraper {
+  width: 500px;
+  gap: 4rem;
+  background-color: blue;
+  padding: 2rem;
+}
+.question-wrraper > input[type="text"] {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+.choices-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  height: 200px;
+}
+
+.choices-wrapper > .choice-wrapper {
+  flex: 1;
+  display: flex;
+  background-color: red;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.choices-wrapper > .choice-wrapper > label {
+  flex: 10;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.right-choice{
+  background-color: green;
+}
+
+.radio-container {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  background-color: blue;
+  height: 100%;
+  width: 20px;
+  cursor: pointer;
+}
+
+.question-wrraper .submit-answer-btn {
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+/* result page */
+.result-continer {
+  display: grid;
+  grid-template-areas:
+    "name result"
+    "percentage percentage"
+    "button button";
+  width: 500px;
+  gap: 1rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.name {
+  background-color: red;
+  grid-area: name;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0rem;
+}
+
+.result {
+  background-color: red;
+  grid-area: result;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 0rem;
+}
+
+.percentage {
+  background-color: red;
+  grid-area: percentage;
+  padding: 3rem 0rem;
+}
+
+.play-again-btn {
+  grid-area: button;
+  padding: 1rem;
+  cursor: pointer;
+}
