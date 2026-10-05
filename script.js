@@ -6,6 +6,7 @@ let question;
 let container = document.querySelector(".container");
 let name = "";
 let result = 0;
+let pass;
 // -----------------------------
 function generateStartPage() {
   container.innerHTML = `
@@ -43,7 +44,7 @@ function generateQuestions(question, choicesHTML) {
 }
 
 function play(questionIndex) {
-  let pass = false;
+  pass = false;
   question = questions[questionIndex];
   let choicesHTML = "";
   question.choices.forEach((choice, index) => {
@@ -59,7 +60,6 @@ function play(questionIndex) {
   });
 
   generateQuestions(question, choicesHTML);
-
   document.querySelectorAll("#label").forEach((label, index) => {
     label.textContent = question.choices[index];
   });
@@ -69,7 +69,7 @@ function play(questionIndex) {
     .addEventListener("click", (event) => {
       event.preventDefault();
       if (pass === true) {
-        if (questionIndex !== questions.langth) play(++questionIndex);
+        if (questionIndex !== questions.length - 1) play(++questionIndex);
         else generateResultspage();
         return;
       }
@@ -86,7 +86,7 @@ function play(questionIndex) {
         result++;
         pass = true;
         console.log(result);
-        if (questionIndex !== questions.langth) play(questionIndex + 1);
+        if (questionIndex !== questions.length - 1) play(++questionIndex);
         else generateResultspage();
       } else {
         choicesHTML = "";
