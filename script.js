@@ -34,7 +34,7 @@ function generateResultspage() {
   document.querySelector(".play-again-btn").addEventListener("click", start);
 }
 
-function generateQuestions(question, choicesHTML) {
+function generateQuestions(question, choicesHTML, questionIndex) {
   container.innerHTML = `
       <form class="question-wrraper">
           <input readonly type="text" id="question" value="${question.question}" />
@@ -44,6 +44,8 @@ function generateQuestions(question, choicesHTML) {
             <button class="submit-answer-btn">submit answer</button>
           </div>
       </form>`;
+  document.querySelector(".progress-bar").innerHTML =
+    `<span style="width:${(questionIndex / questions.length) * 100}%"></span>`;
 }
 
 function play(questionIndex) {
@@ -61,7 +63,7 @@ function play(questionIndex) {
         </label>`;
   });
 
-  generateQuestions(question, choicesHTML);
+  generateQuestions(question, choicesHTML, questionIndex);
   document.querySelectorAll("#label").forEach((label, index) => {
     label.textContent = question.choices[index];
   });
@@ -81,34 +83,30 @@ function play(questionIndex) {
         return;
       }
 
-      const answer =
-        question.choices[document.querySelector(`input:checked`).value];
-      if (answer === question.choices[question.answerIndex]) {
-        result++;
-        document.querySelector(".progress-bar").innerHTML =
-          `<span style="width:${(result / questions.length) * 100}%"></span>`;
-        pass = true;
-        if (questionIndex !== questions.length - 1) play(++questionIndex);
-        else generateResultspage();
-      } else {
-        choicesHTML = "";
-        question.choices.forEach((choice, index) => {
-          choicesHTML += `
-        <label class="choice-wrapper ${index === question.answerIndex ? "right-choice" : ""} ${answer === index ? "selected-choice" : ""}">
+      const selectedIndex = Number(
+        document.querySelector(`input:checked`).value,
+      );
+      const answer = question.choices[selectedIndex];
+
+      if (answer === question.choices[question.answerIndex]) result++;
+
+      choicesHTML = "";
+      question.choices.forEach((choice, index) => {
+        choicesHTML += `
+        <label class="choice-wrapper ${index === question.answerIndex ? "right-choice" : ""} ${selectedIndex === index ? "selected-choice" : ""}">
           <div class="radio-container">
             <input type="radio" name="answer" id="${index}" value="${index}" ${index === question.answerIndex ? 'class="checked"' : ""} />
             <div class="radio"></div>
           </div>
           <label id='label'></label>
         </label>`;
-        });
-        document.querySelector(".choices-wrapper").innerHTML = choicesHTML;
-        document.querySelectorAll("#label").forEach((label, index) => {
-          label.textContent = question.choices[index];
-        });
-        event.target.textContent = "Next ->";
-        pass = true;
-      }
+      });
+      document.querySelector(".choices-wrapper").innerHTML = choicesHTML;
+      document.querySelectorAll("#label").forEach((label, index) => {
+        label.textContent = question.choices[index];
+      });
+      event.target.textContent = "Next ->";
+      pass = true;
     });
 }
 
