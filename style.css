@@ -27,41 +27,47 @@ form {
 }
 .start-form {
   gap: 5rem;
+  width: 90vw;
+  max-width: 1200px;
+  overflow:hidden;
+  text-align: center;
 }
 
 form .name-input-wrraper {
-  width: 40rem;
   display: flex;
   gap: 1rem;
+  max-width: 100%;
+  /* background-color: red; */
 }
 
 form .name-input-wrraper > * {
-  padding: 1rem 2rem;
+  padding: 0.8rem 1rem;
   border-radius: 0.8rem;
   border: 1px solid black;
 }
 
 form .name-input-wrraper > input {
   flex: 2;
-  font-size: 18px;
+  font-size: 1.8rem;
 }
 form .name-input-wrraper > button {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 1.5rem;
 }
 
 /* question page */
 .question-wrraper {
-  width: 500px;
+  width: 90vw;
+  max-width: 1200px;
   gap: 4rem;
   background-color: lightseagreen;
-  padding: 2rem;
+  padding: 1rem;
 }
 .question-wrraper > input[type="text"] {
   width: 100%;
   padding: 20px 0;
   text-align: center;
-  font-size: 16px;
+  font-size: 1.4rem;
 }
 
 .choices-wrapper {
@@ -134,10 +140,11 @@ input[type="radio"]:checked ~ .radio {
     "name result"
     "percentage percentage"
     "button button";
-  width: 500px;
   gap: 1rem;
   text-align: center;
   padding: 1rem;
+  width: 90vw;
+  max-width: 1200px;
 }
 
 .name {
@@ -168,4 +175,12 @@ input[type="radio"]:checked ~ .radio {
   grid-area: button;
   padding: 1rem;
   cursor: pointer;
+}
+
+
+
+@media (max-width = 359px){
+  :root{
+    font-size: 50%;
+  }
 }
