@@ -210,7 +210,7 @@ input[type="radio"]:checked ~ .radio {
   cursor: pointer;
 }
 
-@media (max-width = 359px) {
+@media (max-width: 359px) {
   :root {
     font-size: 50%;
   }
