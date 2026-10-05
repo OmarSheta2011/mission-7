@@ -37,7 +37,8 @@ function generateResultspage() {
 function generateQuestions(question, choicesHTML, questionIndex) {
   container.innerHTML = `
       <form class="question-wrraper">
-          <input readonly type="text" id="question" value="${question.question}" />
+      <input readonly type="text" id="question" value="${question.question}" />
+      <p>question: ${questionIndex + 1} / ${questions.length}</p>
           <div class="choices-wrapper">${choicesHTML}</div>
           <div class="progress-wrraper">
             <div class="progress-bar"><span></span></div>
@@ -82,6 +83,9 @@ function play(questionIndex) {
         alert("please select a choice.");
         return;
       }
+
+      document.querySelector(".progress-bar").innerHTML =
+        `<span style="width:${((questionIndex + 1) / questions.length) * 100}%"></span>`;
 
       const selectedIndex = Number(
         document.querySelector(`input:checked`).value,
