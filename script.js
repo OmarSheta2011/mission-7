@@ -14,7 +14,7 @@ function generateStartPage() {
       <h1 class="start-title">Welcome to the web dev quiz!</h1>
       <div class="name-input-wrraper">
         <input type="text" id="name-input" />
-        <button class="start-btn">Start Quiz</button>
+        <button class="start-btn">Start</button>
       </div>
     </form>`;
   nameInput = document.querySelector("#name-input");
@@ -27,7 +27,7 @@ function generateResultspage() {
       <div class="name">Player Name: ${name}</div>
       <div class="result"> Result: ${result} / ${questions.length}</div>
       <div class="percentage">Percentage: ${(result / questions.length) * 100} %</div>
-      <button class="play-again-btn">play again</button>
+      <button class="play-again-btn">Retry</button>
     </div>`;
   name = "";
   result = 0;
@@ -41,7 +41,7 @@ function generateQuestions(question, choicesHTML, questionIndex) {
           <div class="choices-wrapper">${choicesHTML}</div>
           <div class="progress-wrraper">
             <div class="progress-bar"><span></span></div>
-            <button class="submit-answer-btn">submit answer</button>
+            <button class="submit-answer-btn">Submit</button>
           </div>
       </form>`;
   document.querySelector(".progress-bar").innerHTML =
