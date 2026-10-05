@@ -105,7 +105,7 @@ function play(questionIndex) {
       document.querySelectorAll("#label").forEach((label, index) => {
         label.textContent = question.choices[index];
       });
-      event.target.textContent = "Next ->";
+      event.target.textContent = "Next";
       pass = true;
     });
 }
