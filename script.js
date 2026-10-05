@@ -39,7 +39,10 @@ function generateQuestions(question, choicesHTML) {
       <form class="question-wrraper">
           <input readonly type="text" id="question" value="${question.question}" />
           <div class="choices-wrapper">${choicesHTML}</div>
-          <button class="submit-answer-btn" >submit answer</button>
+          <div class="progress-wrraper">
+            <div class="progress-bar"><span></span></div>
+            <button class="submit-answer-btn">submit answer</button>
+          </div>
       </form>`;
 }
 
@@ -56,7 +59,6 @@ function play(questionIndex) {
           </div>
           <label id='label' for="${index}"></label>
         </label>`;
-    console.log(index);
   });
 
   generateQuestions(question, choicesHTML);
@@ -81,11 +83,11 @@ function play(questionIndex) {
 
       const answer =
         question.choices[document.querySelector(`input:checked`).value];
-      console.log(answer, typeof answer);
       if (answer === question.choices[question.answerIndex]) {
         result++;
+        document.querySelector(".progress-bar").innerHTML =
+          `<span style="width:${(result / questions.length) * 100}%"></span>`;
         pass = true;
-        console.log(result);
         if (questionIndex !== questions.length - 1) play(++questionIndex);
         else generateResultspage();
       } else {
