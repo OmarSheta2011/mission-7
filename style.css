@@ -87,6 +87,17 @@ form .name-input-wrraper > button {
   overflow: hidden;
 }
 
+.feedback > p {
+  text-align: center;
+  font-size: 2rem;
+}
+.correct{
+  color: green;
+}
+.incorrect {
+  color: red;
+}
+
 .progress-wrraper {
   display: flex;
   gap: 1rem;
@@ -108,6 +119,7 @@ form .name-input-wrraper > button {
   background-color: green;
   height: 100%;
   border-radius: 999px;
+  transition: .3s;
 }
 
 .choices-wrapper > .choice-wrapper > label {

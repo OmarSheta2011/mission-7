@@ -40,13 +40,14 @@ function generateQuestions(question, choicesHTML, questionIndex) {
       <input readonly type="text" id="question" value="${question.question}" />
       <p>question: ${questionIndex + 1} / ${questions.length}</p>
           <div class="choices-wrapper">${choicesHTML}</div>
+          <div class="feedback"><p></p></div>
           <div class="progress-wrraper">
-            <div class="progress-bar"><span></span></div>
+            <div class="progress-bar">
+              <span style="width:${(questionIndex / questions.length) * 100}%"></span>
+            </div>
             <button class="submit-answer-btn">Submit</button>
           </div>
       </form>`;
-  document.querySelector(".progress-bar").innerHTML =
-    `<span style="width:${(questionIndex / questions.length) * 100}%"></span>`;
 }
 
 function play(questionIndex) {
@@ -84,15 +85,24 @@ function play(questionIndex) {
         return;
       }
 
-      document.querySelector(".progress-bar").innerHTML =
-        `<span style="width:${((questionIndex + 1) / questions.length) * 100}%"></span>`;
+      document.querySelector(".progress-bar > span").style.width =
+        `${((questionIndex + 1) / questions.length) * 100}%`;
 
       const selectedIndex = Number(
         document.querySelector(`input:checked`).value,
       );
       const answer = question.choices[selectedIndex];
 
-      if (answer === question.choices[question.answerIndex]) result++;
+      if (answer === question.choices[question.answerIndex]) {
+        result++;
+        document.querySelector(".feedback > p").textContent = "Correct";
+        document.querySelector(".feedback > p").classList.add("correct");
+        document.querySelector(".feedback > p").classList.remove("incorrect");
+      } else {
+        document.querySelector(".feedback > p").textContent = "Incorrect";
+        document.querySelector(".feedback > p").classList.add("incorrect");
+        document.querySelector(".feedback > p").classList.remove("correct");
+      }
 
       choicesHTML = "";
       question.choices.forEach((choice, index) => {
