@@ -97,11 +97,9 @@ function play(questionIndex) {
         result++;
         document.querySelector(".feedback > p").textContent = "Correct";
         document.querySelector(".feedback > p").classList.add("correct");
-        document.querySelector(".feedback > p").classList.remove("incorrect");
       } else {
         document.querySelector(".feedback > p").textContent = "Incorrect";
         document.querySelector(".feedback > p").classList.add("incorrect");
-        document.querySelector(".feedback > p").classList.remove("correct");
       }
 
       choicesHTML = "";
